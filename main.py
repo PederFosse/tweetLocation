@@ -1,16 +1,18 @@
-# This is a sample Python script.
+import pandas as pd
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+new_york_tweets = pd.read_json('new_york.json', lines=True)
+london_tweets = pd.read_json('london.json', lines=True)
+paris_tweets = pd.read_json('paris.json', lines=True)
 
+new_york_text = new_york_tweets['text'].tolist()
+london_text = london_tweets['text'].tolist()
+paris_text = paris_tweets['text'].tolist()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+# combine all text into one long list of tweets
+all_tweets = new_york_text + london_text + paris_text
 
+# create labels for tweets by location; 0 = new york, 1 = london, 2 = paris
+labels = [0] * len(new_york_text) + [1] * len(london_text) + [2] * len(paris_text)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# divide set into train and test set
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
